@@ -164,8 +164,8 @@ Be sure to replace `ozone.example.com` with your own domain, and `ozone@example.
 
 ```bash
 cat <<CADDYFILE | sudo tee /ozone/caddy/etc/caddy/Caddyfile
-ozone.example.com {
-  tls ozone@example.com
+ozone.eurosky.social {
+  tls cielobluxyz@gmail.com
   reverse_proxy http://localhost:3000
 }
 CADDYFILE
@@ -198,12 +198,12 @@ Your Ozone instance will need a secp256k1 private key used to sign labels provid
 - Replace `ozone.example.com` with your domain name.
 
 ```bash
-OZONE_HOSTNAME="ozone.example.com"
-OZONE_SERVICE_ACCOUNT_HANDLE="mylabeler.bsky.social"
+OZONE_HOSTNAME="ozone.eurosky.social"
+OZONE_SERVICE_ACCOUNT_HANDLE="eurosky-ozone.bsky.social"
 OZONE_SERVER_DID="$(curl --fail --silent --show-error "https://api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${OZONE_SERVICE_ACCOUNT_HANDLE}" | jq --raw-output .did)"
 OZONE_ADMIN_PASSWORD="$(openssl rand --hex 16)"
 OZONE_SIGNING_KEY_HEX="$(openssl ecparam --name secp256k1 --genkey --noout --outform DER | tail --bytes=+8 | head --bytes=32 | xxd --plain --cols 32)"
-POSTGRES_PASSWORD="..." # Use password from postgres env setup
+# POSTGRES_PASSWORD="..." # Use password from postgres env setup
 
 cat <<OZONE_CONFIG | sudo tee /ozone/ozone.env
 OZONE_SERVER_DID=${OZONE_SERVER_DID}
